@@ -67,10 +67,14 @@
                 🏠 Начало
             </button>
             <button onclick="switchTab('addition')" id="btn-addition" class="px-6 py-3 rounded-xl font-semibold transition-all bg-slate-100 text-slate-600 hover:bg-slate-200">
-                ➕ Правило за събиране
+                ➕ Събиране
             </button>
             <button onclick="switchTab('multiplication')" id="btn-multiplication" class="px-6 py-3 rounded-xl font-semibold transition-all bg-slate-100 text-slate-600 hover:bg-slate-200">
-                ✖️ Правило за умножение
+                ✖️ Умножение
+            </button>
+            <!-- НОВ ТАБ: Обобщение -->
+            <button onclick="switchTab('summary')" id="btn-summary" class="px-6 py-3 rounded-xl font-semibold transition-all bg-slate-100 text-slate-600 hover:bg-slate-200">
+                💡 Обобщение
             </button>
             <button onclick="switchTab('quiz')" id="btn-quiz" class="px-6 py-3 rounded-xl font-semibold transition-all bg-slate-100 text-slate-600 hover:bg-slate-200">
                 🧠 Тест
@@ -133,18 +137,10 @@
         <!-- ТАБ: СЪБИРАНЕ -->
         <section id="tab-addition" class="tab-content">
             <div class="bg-white rounded-3xl shadow-xl p-6 md:p-8 border-t-8 border-blue-500 animate-fade-in">
-                <h2 class="text-2xl font-bold text-blue-600 mb-4">Правило за събиране на възможности</h2>
                 
-                <div class="bg-blue-50 p-4 rounded-xl border border-blue-100 mb-6">
-                    <p class="text-lg">
-                        Ако можем да изберем един елемент от първо множество по <strong>m</strong> начина <strong class="text-blue-600 uppercase">ИЛИ</strong> един елемент от второ множество по <strong>n</strong> начина, 
-                        то изборът на ТОЧНО ЕДИН елемент (от първото или от второто множество) може да стане по <strong>m + n</strong> начина.
-                    </p>
-                    <p class="mt-2 font-semibold text-slate-700">Ключова дума: <span class="bg-blue-200 text-blue-800 px-2 py-1 rounded">ИЛИ</span></p>
-                </div>
-
-                <div class="mb-8">
-                    <h3 class="text-xl font-semibold mb-4 text-center">Пример: Избор на десерт</h3>
+                <!-- Първо показваме примера -->
+                <div class="mb-2">
+                    <h3 class="text-2xl font-bold mb-4 text-center text-slate-800">Пример: Избор на десерт</h3>
                     <p class="text-center mb-6 text-slate-600">
                         Искаш да си купиш <strong>само един</strong> десерт. В сладкарницата има торти и сладоледи. 
                         Колко общо възможности за избор имаш?
@@ -165,9 +161,19 @@
                             <div id="icecreams-container" class="flex flex-wrap justify-center gap-4 min-h-[60px]"></div>
                         </div>
                     </div>
+                </div>
 
+                <!-- Бутон за решаване -->
+                <div class="text-center mt-8 mb-4" id="addition-solve-container">
+                    <button onclick="solveAddition()" class="bg-blue-500 text-white px-8 py-3 rounded-xl font-bold hover:bg-blue-600 transition-colors shadow-md text-lg animate-bounce">
+                        Пресметни възможностите ➔
+                    </button>
+                </div>
+
+                <!-- Скрита секция: Резултат и Правило -->
+                <div id="addition-rule-section" class="hidden">
                     <!-- Result -->
-                    <div class="mt-8 bg-blue-100 p-6 rounded-2xl text-center shadow-inner">
+                    <div class="mt-8 bg-blue-100 p-6 rounded-2xl text-center shadow-inner mb-8">
                         <p class="text-xl mb-2">Общ брой възможности да избереш 1 десерт:</p>
                         <div class="text-4xl font-bold text-blue-700 flex items-center justify-center gap-4">
                             <span id="res-cakes" class="text-rose-500">3</span> 
@@ -177,6 +183,16 @@
                             <span id="res-add-total" class="bg-white px-4 py-2 rounded-xl shadow">5</span>
                         </div>
                     </div>
+
+                    <!-- Правило (След примера) -->
+                    <h2 class="text-2xl font-bold text-blue-600 mb-4 border-t border-slate-100 pt-8">Правило за събиране</h2>
+                    <div class="bg-blue-50 p-4 rounded-xl border border-blue-100">
+                        <p class="text-lg">
+                            Ако можем да изберем един елемент от първо множество по <strong>m</strong> начина <strong class="text-blue-600 uppercase">ИЛИ</strong> един елемент от второ множество по <strong>n</strong> начина, 
+                            то изборът на ТОЧНО ЕДИН елемент (от първото или от второто множество) може да стане по <strong>m + n</strong> начина.
+                        </p>
+                        <p class="mt-2 font-semibold text-slate-700">Ключова дума: <span class="bg-blue-200 text-blue-800 px-2 py-1 rounded">ИЛИ</span></p>
+                    </div>
                 </div>
             </div>
         </section>
@@ -184,18 +200,10 @@
         <!-- ТАБ: УМНОЖЕНИЕ -->
         <section id="tab-multiplication" class="tab-content">
             <div class="bg-white rounded-3xl shadow-xl p-6 md:p-8 border-t-8 border-emerald-500 animate-fade-in">
-                <h2 class="text-2xl font-bold text-emerald-600 mb-4">Правило за умножение на възможности</h2>
                 
-                <div class="bg-emerald-50 p-4 rounded-xl border border-emerald-100 mb-6">
-                    <p class="text-lg">
-                        Ако един избор може да се направи на две стъпки, като първата стъпка може да се направи по <strong>m</strong> начина, 
-                        а за всеки от тях втората стъпка може да се направи по <strong>n</strong> начина, то общият брой възможности за целия избор е <strong>m · n</strong>.
-                    </p>
-                    <p class="mt-2 font-semibold text-slate-700">Ключова дума: <span class="bg-emerald-200 text-emerald-800 px-2 py-1 rounded">И (последователност)</span></p>
-                </div>
-
-                <div class="mb-8">
-                    <h3 class="text-xl font-semibold mb-4 text-center">Пример: Избор на облекло</h3>
+                <!-- Първо показваме примера -->
+                <div class="mb-2">
+                    <h3 class="text-2xl font-bold mb-4 text-center text-slate-800">Пример: Избор на облекло</h3>
                     <p class="text-center mb-6 text-slate-600">
                         Трябва да се облечеш, като избереш една тениска <strong>И</strong> един панталон. 
                         Колко различни комбинации (тоалета) можеш да съставиш?
@@ -214,15 +222,25 @@
                             <input type="range" min="1" max="5" value="2" id="slider-pants" class="slider-indigo mb-2" oninput="updateMultiplication()">
                         </div>
                     </div>
+                </div>
 
+                <!-- Бутон за решаване -->
+                <div class="text-center mt-4 mb-4" id="multiplication-solve-container">
+                    <button onclick="solveMultiplication()" class="bg-emerald-500 text-white px-8 py-3 rounded-xl font-bold hover:bg-emerald-600 transition-colors shadow-md text-lg animate-bounce">
+                        Генерирай тоалети ➔
+                    </button>
+                </div>
+
+                <!-- Скрита секция: Матрица, Резултат и Правило -->
+                <div id="multiplication-rule-section" class="hidden">
                     <!-- Dynamic Grid -->
-                    <div class="bg-emerald-50 p-6 rounded-2xl overflow-x-auto">
+                    <div class="bg-emerald-50 p-6 rounded-2xl overflow-x-auto mb-8">
                         <h4 class="text-center font-bold text-slate-700 mb-4">Всички възможни комбинации:</h4>
                         <div id="matrix-container" class="flex flex-col gap-3 items-center min-w-max mx-auto"></div>
                     </div>
 
                     <!-- Result -->
-                    <div class="mt-8 bg-emerald-100 p-6 rounded-2xl text-center shadow-inner">
+                    <div class="bg-emerald-100 p-6 rounded-2xl text-center shadow-inner mb-8">
                         <p class="text-xl mb-2">Общ брой различни тоалети:</p>
                         <div class="text-4xl font-bold text-emerald-700 flex items-center justify-center gap-4">
                             <span id="res-shirts" class="text-cyan-600">3</span> 
@@ -232,6 +250,48 @@
                             <span id="res-mult-total" class="bg-white px-4 py-2 rounded-xl shadow">6</span>
                         </div>
                     </div>
+
+                    <!-- Правило (След примера) -->
+                    <h2 class="text-2xl font-bold text-emerald-600 mb-4 border-t border-slate-100 pt-8">Правило за умножение</h2>
+                    <div class="bg-emerald-50 p-4 rounded-xl border border-emerald-100">
+                        <p class="text-lg">
+                            Ако един избор може да се направи на две стъпки, като първата стъпка може да се направи по <strong>m</strong> начина, 
+                            а за всеки от тях втората стъпка може да се направи по <strong>n</strong> начина, то общият брой възможности за целия избор е <strong>m · n</strong>.
+                        </p>
+                        <p class="mt-2 font-semibold text-slate-700">Ключова дума: <span class="bg-emerald-200 text-emerald-800 px-2 py-1 rounded">И (последователност)</span></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ТАБ: ОБОБЩЕНИЕ -->
+        <section id="tab-summary" class="tab-content">
+            <div class="bg-white rounded-3xl shadow-xl p-8 border-t-8 border-amber-500 animate-fade-in">
+                <h2 class="text-3xl font-bold text-amber-600 mb-6 text-center">💡 Най-важното от урока</h2>
+                <p class="text-center text-lg text-slate-600 mb-8 max-w-2xl mx-auto">За да знаеш кое правило да приложиш, винаги се питай: <strong>"Колко неща избирам в крайна сметка?"</strong></p>
+                
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="p-6 bg-blue-50 rounded-2xl border-l-4 border-blue-500">
+                        <h3 class="font-bold text-blue-700 text-xl mb-2 flex items-center gap-2"><span class="text-2xl">➕</span> Правило за събиране</h3>
+                        <p class="mb-4">Използваме, когато правим избор от няколко различни групи, но накрая избираме <strong>САМО ЕДИН</strong> обект общо.</p>
+                        <p class="font-semibold text-slate-700">Ключова дума:</p>
+                        <div class="inline-block mt-1 bg-blue-200 text-blue-800 px-3 py-1 rounded-lg font-bold text-lg border border-blue-300">ИЛИ</div>
+                        <p class="text-sm mt-2 text-slate-500 italic">Пример: 1 торта ИЛИ 1 сладолед</p>
+                    </div>
+
+                    <div class="p-6 bg-emerald-50 rounded-2xl border-l-4 border-emerald-500">
+                        <h3 class="font-bold text-emerald-700 text-xl mb-2 flex items-center gap-2"><span class="text-2xl">✖️</span> Правило за умножение</h3>
+                        <p class="mb-4">Използваме, когато правим избор на няколко етапа (последователно) и накрая имаме <strong>ПОВЕЧЕ ОТ ЕДИН</strong> обект (комплект).</p>
+                        <p class="font-semibold text-slate-700">Ключова дума:</p>
+                        <div class="inline-block mt-1 bg-emerald-200 text-emerald-800 px-3 py-1 rounded-lg font-bold text-lg border border-emerald-300">И</div>
+                        <p class="text-sm mt-2 text-slate-500 italic">Пример: 1 тениска И 1 панталон</p>
+                    </div>
+                </div>
+
+                <div class="mt-8 text-center">
+                    <button onclick="switchTab('quiz')" class="bg-amber-500 text-white px-8 py-3 rounded-xl font-bold hover:bg-amber-600 transition-colors shadow-md text-lg">
+                        Готов съм за Теста ➔
+                    </button>
                 </div>
             </div>
         </section>
@@ -290,6 +350,38 @@
 
     <!-- СКРИПТОВЕ -->
     <script>
+        // --- Състояние на задачите ---
+        let isAdditionSolved = false;
+        let isMultiplicationSolved = false;
+
+        function solveAddition() {
+            isAdditionSolved = true;
+            updateVisibility();
+        }
+
+        function solveMultiplication() {
+            isMultiplicationSolved = true;
+            updateVisibility();
+        }
+
+        function updateVisibility() {
+            const addRuleSec = document.getElementById('addition-rule-section');
+            const addBtnSec = document.getElementById('addition-solve-container');
+            if (isAdditionSolved) {
+                addRuleSec.classList.remove('hidden');
+                addRuleSec.classList.add('animate-fade-in');
+                addBtnSec.classList.add('hidden');
+            }
+
+            const multRuleSec = document.getElementById('multiplication-rule-section');
+            const multBtnSec = document.getElementById('multiplication-solve-container');
+            if (isMultiplicationSolved) {
+                multRuleSec.classList.remove('hidden');
+                multRuleSec.classList.add('animate-fade-in');
+                multBtnSec.classList.add('hidden');
+            }
+        }
+
         // --- Навигация ---
         function switchTab(tabId) {
             // Скриване на всички табове
@@ -306,6 +398,7 @@
             if(tabId === 'home') activeBtn.className = "px-6 py-3 rounded-xl font-semibold transition-all bg-indigo-500 text-white shadow-md transform scale-105";
             if(tabId === 'addition') activeBtn.className = "px-6 py-3 rounded-xl font-semibold transition-all bg-blue-500 text-white shadow-md transform scale-105";
             if(tabId === 'multiplication') activeBtn.className = "px-6 py-3 rounded-xl font-semibold transition-all bg-emerald-500 text-white shadow-md transform scale-105";
+            if(tabId === 'summary') activeBtn.className = "px-6 py-3 rounded-xl font-semibold transition-all bg-amber-500 text-white shadow-md transform scale-105";
             if(tabId === 'quiz') activeBtn.className = "px-6 py-3 rounded-xl font-semibold transition-all bg-purple-500 text-white shadow-md transform scale-105";
         }
 
@@ -616,6 +709,7 @@
             updateAddition();
             updateMultiplication();
             startQuiz(); // Подготвя теста в бекграунд
+            updateVisibility();
         };
 
     </script>
